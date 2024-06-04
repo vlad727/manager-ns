@@ -26,7 +26,3 @@ func main() {
 	http.HandleFunc("/validate", api.Validate) // func validate in package api
 	log.Fatal(http.ListenAndServeTLS(port, tlscert, tlskey, nil))
 }
-
-/*
-false create role binding for kubernetes-admin
-*/
