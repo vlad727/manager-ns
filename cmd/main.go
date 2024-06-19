@@ -26,3 +26,16 @@ func main() {
 	http.HandleFunc("/validate", api.Validate) // func validate in package api
 	log.Fatal(http.ListenAndServeTLS(port, tlscert, tlskey, nil))
 }
+
+/*
++ false create role binding limits and quota for kubernetes-admin
++ change name for configmap
++ add toleration
+
+add annotations or label who created namespace
+( k annotate ns  vlku6 requester=kubernetes-admin
+metadata:
+  annotations:
+    requester: kubernetes-admin)
+deploy mns to barrier-01
+*/
