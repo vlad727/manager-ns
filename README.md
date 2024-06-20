@@ -1,5 +1,5 @@
 # Manager for kubernetes namespaces
-Application creates limit range, resource quota and role binding for new namespaces also it set annotation for namespace "requester: system:serviceaccount:vlku4:vlku4"
+Application creates limit range, resource quota and role binding for new namespaces also it set annotation for namespace like "requester: system:serviceaccount:vlku4:vlku4"
 ## How to build application
 docker build -t webhook-app .
 ## How to deploy it to k8s
