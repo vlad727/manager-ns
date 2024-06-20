@@ -34,9 +34,9 @@ func CreateObjects(nsName, userInfo string) {
 	// ---------------------------------------
 	// requester may be kubernetes-admin or system:serviceaccount:vlku4:vlku4 or just a login from ldap someusername
 	// parse requester user or service account
-	log.Printf("Requester %s", userInfo)
+	//log.Printf("Requester %s", userInfo)
 	// send requester name and namespace name for annotation namespace
-	annotations.SetAnnotaion(userInfo, nsName)
+	go annotations.SetAnnotation(userInfo, nsName)
 	// empty slice
 	sliceUser := []string{}
 	// append to slice
@@ -102,10 +102,10 @@ func CreateObjects(nsName, userInfo string) {
 		_, err := clientset.RbacV1().RoleBindings(nsName).Create(context.Background(), &roleBinding, metav1.CreateOptions{})
 		if err != nil {
 			log.Println(err)
-			log.Printf("failed to create rolebinding for %s ", userInfo)
+			log.Printf("Failed to create rolebinding for %s ", userInfo)
 
 		} else {
-			log.Printf("created rolebinding for %s", userInfo)
+			log.Printf("Created rolebinding for %s", userInfo)
 		}
 		resources.QuotaLimits(nsName)
 	}

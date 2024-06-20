@@ -105,7 +105,7 @@ func QuotaLimits(nsName string) {
 		log.Println("Cluster is k8s not OpenShift no need to create NetworkAttachmentDefinition ")
 		log.Printf("Error %s", err)
 	} else {
-		log.Println("Created NetworkAttachmentDefinition ")
+		log.Printf("Created NetworkAttachmentDefinition for %s", nsName)
 	}
 
 }

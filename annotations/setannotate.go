@@ -8,6 +8,7 @@ import (
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
 	"log"
+	"time"
 )
 
 var (
@@ -38,8 +39,9 @@ type Requester struct {
 	Requester string `json:"requester"`
 }
 
-func SetAnnotaion(reqname, nsName string) {
-
+func SetAnnotation(reqname, nsName string) {
+	// wait while namespace will created
+	time.Sleep(1 * time.Second)
 	setAnnotation := Y{
 		Metadata: Annotations{
 			Requester{reqname},
@@ -53,10 +55,12 @@ func SetAnnotaion(reqname, nsName string) {
 	//Note: that type used MergePatchType (allow add new piece of json to namespace)
 	_, err := clientset.CoreV1().Namespaces().Patch(context.TODO(), nsName, types.MergePatchType, bytes, metav1.PatchOptions{})
 	if err != nil {
-
+		log.Printf("Failed to set annotation for %s", nsName)
 		log.Println(err)
+	} else {
+		log.Println("Namespace has been annotated with", string(bytes))
 	}
-	log.Println("Namespace has been annotated ", string(bytes))
+
 }
 
 //Result:

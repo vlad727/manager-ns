@@ -59,11 +59,13 @@ func Validate(w http.ResponseWriter, r *http.Request) {
 
 	// convert to slice
 	stringToSlice := strings.Split(nsToStr, "\n")
-	log.Printf("Checking namespace %s", nsName)
+	log.Printf("Checking namespace, is it allowed to create resources for %s?", nsName)
 	// check namespace name is forbidden to create resources?
 	if slices.Contains(stringToSlice, nsName) {
+		log.Println("Allowed False")
 		log.Printf("Create resources for namespace %s is forbidden", nsName)
 	} else {
+		log.Println("Allowed True")
 		//log.Println("Start to create resources")
 		go clientset.CreateObjects(nsName, userInfo)
 	}
