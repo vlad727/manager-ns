@@ -1,8 +1,3 @@
-
-# Project Title
-
-A brief description of what this project does and who it's for
-
 # Manager for kubernetes namespaces
 Application creates limit range, resource quota and role binding for new namespaces also it set annotation for namespace like "requester: system:serviceaccount:vlku4:vlku4"
 ## How to build application
