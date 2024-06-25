@@ -11,7 +11,7 @@ docker build -t webhook-app .
 # Install helm before
 brew install helm 
 # Clone this project and install by helm
-helm repo add vlku https://registry.apps.k8s.ose-prod.solution.sbt/chartrepo/vlku --username LOGIN --password TOKEN
+helm repo add vlku https://registry.<your-registry>/chartrepo/vlku --username LOGIN --password TOKEN
 helm pull vlku/manager-ns --untar
 helm install mns ns-manager/ 
 
