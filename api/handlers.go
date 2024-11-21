@@ -11,7 +11,7 @@ import (
 	"strings"
 )
 
-// Validate handler accepts or rejects based on request contents
+// Validate handlers accepts or rejects based on request contents
 func Validate(w http.ResponseWriter, r *http.Request) {
 
 	// var arReview with struct v1beta1.AdmissionReview{}
@@ -40,7 +40,7 @@ func Validate(w http.ResponseWriter, r *http.Request) {
 		UID:     arReview.Request.UID,
 		Allowed: true,
 	}
-	//log.Println("The end of func validate")
+	//log.Println("The end of func validate.bac")
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(&arReview)

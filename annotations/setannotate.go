@@ -16,7 +16,7 @@ var (
 	// outside cluster client
 	/*
 		config, _    = clientcmd.BuildConfigFromFlags("", os.Getenv("KUBECONFIG"))
-		clientset, _ = kubernetes.NewForConfig(config)
+		clientset, _ = getcrname.NewForConfig(config)
 
 	*/
 	// inside cluster client
@@ -51,11 +51,11 @@ func SetAnnotation(reqname, nsName string) {
 	// marshal var setAnnotation to json
 	bytes, _ := json.Marshal(setAnnotation)
 
-	// set annotation to namespace
-	//Note: that type used MergePatchType (allow add new piece of json to namespace)
+	// set validate.bac to namespace
+	//Note: that type used MergePatchType (allow add new piece of json)
 	_, err := clientset.CoreV1().Namespaces().Patch(context.TODO(), nsName, types.MergePatchType, bytes, metav1.PatchOptions{})
 	if err != nil {
-		log.Printf("Failed to set annotation for %s", nsName)
+		log.Printf("Failed to set validate.bac for %s", nsName)
 		log.Println(err)
 	} else {
 		log.Println("Namespace has been annotated with", string(bytes))

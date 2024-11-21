@@ -3,7 +3,8 @@ package main
 import (
 	"flag"
 	"log"
-	"manager-ns/api" // import api package with handlers.go to validate request
+	"manager-ns/api" // import api package with app.go to validate.bac request
+	"manager-ns/checkhealth"
 	"net/http"
 )
 
@@ -22,20 +23,7 @@ func main() {
 	flag.StringVar(&tlskey, "tlsKeyFile", "/certs/tls.key",
 		"File containing a private key for HTTPS.")
 	flag.Parse()
-
-	http.HandleFunc("/validate", api.Validate) // func validate in package api
+	http.HandleFunc("/health", checkhealth.Health) // func Health in package checkhealth
+	http.HandleFunc("/validate", api.Validate)     // func validate.bac in package api
 	log.Fatal(http.ListenAndServeTLS(port, tlscert, tlskey, nil))
 }
-
-/*
-+ false create role binding limits and quota for kubernetes-admin
-+ change name for configmap
-+ add toleration
-
-add annotations or label who created namespace
-( k annotate ns  vlku6 requester=kubernetes-admin
-metadata:
-  annotations:
-    requester: kubernetes-admin)
-deploy mns to barrier-01
-*/

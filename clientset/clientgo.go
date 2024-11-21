@@ -15,12 +15,6 @@ import (
 
 var (
 
-	// outside cluster client
-	/*
-		config, _       = clientcmd.BuildConfigFromFlags("", os.Getenv("KUBECONFIG"))
-		clientset, _    = kubernetes.NewForConfig(config)
-	*/
-
 	// inside cluster client
 	// creates the in-cluster config
 	config, _ = rest.InClusterConfig()
@@ -32,10 +26,10 @@ var (
 func CreateObjects(nsName, userInfo string) {
 
 	// ---------------------------------------
-	// requester may be kubernetes-admin or system:serviceaccount:vlku4:vlku4 or just a login from ldap someusername
+	// requester may be getcrname-admin or system:serviceaccount:vlku4:vlku4 or just a login from ldap someusername
 	// parse requester user or service account
 	//log.Printf("Requester %s", userInfo)
-	// send requester name and namespace name for annotation namespace
+	// send requester name and namespace name for validate.bac namespace
 	go annotations.SetAnnotation(userInfo, nsName)
 	// empty slice
 	sliceUser := []string{}
@@ -75,10 +69,10 @@ func CreateObjects(nsName, userInfo string) {
 		}
 		resources.QuotaLimits(nsName) // create quota and limit for namespace
 
-	} else if slices.Contains(parsedUser, "kubernetes-admin") {
-		log.Println("No need to create Rolebinding for kubernetes admin")
-		log.Println("No need to create ResourceQuota for kubernetes admin")
-		log.Println("No need to create LimitRange for kubernetes admin")
+	} else if slices.Contains(parsedUser, "kubernetes-admin") || slices.Contains(parsedUser, "jenkins-mgmt") {
+		log.Println("Forbidden to create Rolebinding ...")
+		log.Println("Forbidden to create ResourceQuota ...")
+		log.Println("Forbidden to create LimitRange ...")
 
 	} else {
 		// create role binding for user
